@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Text;
 
 namespace FileManager
 {
@@ -25,5 +27,11 @@ namespace FileManager
             this._fromLine = fromLine;
             this._toLine = toLine;
         }
+
+        public string Read()
+        {
+            return File.ReadAllText(Path.GetFullPath(_filePath));
+        }
+
     }
 }
