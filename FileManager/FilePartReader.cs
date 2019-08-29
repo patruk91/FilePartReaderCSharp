@@ -7,14 +7,14 @@ namespace FileManager
     public class FilePartReader
     {
         private string _filePath;
-        private int? _fromLine;
-        private int? _toLine;
+        private int _fromLine;
+        private int _toLine;
 
         public FilePartReader()
         {
-            _filePath = "";
-            _fromLine = null;
-            _toLine = null;
+            _filePath = string.Empty;
+            _fromLine = -1;
+            _toLine = -1;
         }
 
         public void Setup(string filePath, int fromLine, int toLine)
@@ -32,6 +32,5 @@ namespace FileManager
         {
             return File.ReadAllText(Path.GetFullPath(_filePath));
         }
-
     }
 }
