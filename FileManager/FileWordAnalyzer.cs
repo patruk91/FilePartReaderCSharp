@@ -6,7 +6,7 @@ namespace FileManager
 {
     public class FileWordAnalyzer
     {
-        private FilePartReader _filePartReader;
+        private readonly FilePartReader _filePartReader;
 
         public FileWordAnalyzer(FilePartReader filePartReader)
         {
@@ -18,6 +18,12 @@ namespace FileManager
             string[] words = GetWords();
             Array.Sort(words);
             return words.ToList();
+        }
+
+        public List<string> GetWordsContainingSubstring(string substring)
+        {
+            string[] words = GetWords();
+            return words.Where(word => word.Contains(substring)).ToList();
         }
 
         public string[] GetWords()
