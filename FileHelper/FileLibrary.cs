@@ -5,7 +5,7 @@ namespace FileHelper
 {
     public static class FileLibrary
     {
-        public static string Reverse(this string str)
+        public static string ReverseWord(this string str)
         {
             return str.ToCharArray().Reverse().ToString();
         }
