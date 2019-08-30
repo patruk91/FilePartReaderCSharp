@@ -94,7 +94,44 @@ namespace FileManagerTest
             _filePartReaderMock.CallBase = false;
 
             _filePartReaderMock.Verify(x => x.ReadLines(), Times.Once);
+        }
 
+        [Test]
+        public void GetWordsWhichArePalindromesFromString()
+        {
+            List<string> expected = new List<string> { "abba", "rotor", "kayak" };
+            _filePartReaderMock.Setup(mock => mock.ReadLines()).Returns("palindromes abba arguments class rotor kayak");
+
+            List<string> actual = _fileWordAnalyzer.GetStringWhichPalindromes();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void GetWordsWhichArePalindromesFromStringWithDifferentCases()
+        {
+            List<string> expected = new List<string> { "Abba", "rOtor", "kayaK" };
+            _filePartReaderMock.Setup(mock => mock.ReadLines()).Returns("PalinDromes Abba arguments class rOtor kayaK");
+
+            List<string> actual = _fileWordAnalyzer.GetStringWhichPalindromes();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void verifyIsReadLinesMethodIsInvokedWhenExecuteGetStringsWhichPalindromes()
+        {
+            const string filePath = @"F:\C#\PROJECTS\FilePartReader\test.txt";
+            const int fromLine = 1;
+            const int toLine = 5;
+            _filePartReaderMock.CallBase = true;
+            _filePartReaderMock.Object.Setup(filePath, fromLine, toLine);
+            Mock<FileWordAnalyzer> fileWordAnalyzerMock = new Mock<FileWordAnalyzer>(_filePartReaderMock.Object);
+
+            fileWordAnalyzerMock.Object.GetStringWhichPalindromes();
+            _filePartReaderMock.CallBase = false;
+
+            _filePartReaderMock.Verify(x => x.ReadLines(), Times.Once);
         }
     }
 }
