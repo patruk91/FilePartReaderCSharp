@@ -48,16 +48,53 @@ namespace FileManagerTest
             const string filePath = @"F:\C#\PROJECTS\FilePartReader\test.txt";
             const int fromLine = 1;
             const int toLine = 4;
-
             _filePartReaderMock.CallBase = true;
             _filePartReaderMock.Object.Setup(filePath, fromLine, toLine);
             Mock<FileWordAnalyzer> fileWordAnalyzerMock = new Mock<FileWordAnalyzer>(_filePartReaderMock.Object);
 
             fileWordAnalyzerMock.Object.GetWordsOrderedAlphabetically();
             _filePartReaderMock.CallBase = false;
+
             _filePartReaderMock.Verify(x => x.ReadLines(), Times.Once);
         }
 
+        [Test]
+        public void GetWordsContainingSubstringFromString()
+        {
+            List<string> expected = new List<string> { "zeta", "beta", "theta" };
+            _filePartReaderMock.Setup(mock => mock.ReadLines()).Returns("gamma zeta beta theta alpha");
 
+            List<string> actual = _fileWordAnalyzer.GetWordsContainingSubstring("eta");
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void GetWordsContainingSubstringFromStringWithDifferentCases()
+        {
+            List<string> expected = new List<string> { "Zeta", "beta", "Theta" };
+            _filePartReaderMock.Setup(mock => mock.ReadLines()).Returns("gamma Zeta beta Theta alpha");
+
+            List<string> actual = _fileWordAnalyzer.GetWordsContainingSubstring("eta");
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void VerifyIsReadLinesMethodIsInvokedWhenExecuteGetWordsContainingSubstring()
+        {
+            const string filePath = @"F:\C#\PROJECTS\FilePartReader\test.txt";
+            const int fromLine = 1;
+            const int toLine = 5;
+            _filePartReaderMock.CallBase = true;
+            _filePartReaderMock.Object.Setup(filePath, fromLine, toLine);
+            Mock<FileWordAnalyzer> fileWordAnalyzerMock = new Mock<FileWordAnalyzer>(_filePartReaderMock.Object);
+
+            fileWordAnalyzerMock.Object.GetWordsContainingSubstring("et");
+            _filePartReaderMock.CallBase = false;
+
+            _filePartReaderMock.Verify(x => x.ReadLines(), Times.Once);
+
+        }
     }
 }
