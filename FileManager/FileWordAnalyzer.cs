@@ -30,7 +30,7 @@ namespace FileManager
         public List<string> GetStringWhichPalindromes()
         {
             string[] words = GetWords();
-            return words.Where(word => word.ToLower().Equals(word.ReverseWord())).ToList();
+            return words.Where(word => word.ToLower().Equals(word.ToLower().ReverseWord())).ToList();
         }
 
         public string[] GetWords()
