@@ -28,7 +28,7 @@ namespace FileManager
             this._toLine = toLine;
         }
 
-        public string Read()
+        public virtual string Read()
         {
             return File.ReadAllText(Path.GetFullPath(_filePath));
         }

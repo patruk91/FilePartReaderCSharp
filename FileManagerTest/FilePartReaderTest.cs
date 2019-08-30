@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using FileManager;
+using Moq;
 using NUnit.Framework;
 
 namespace FileManagerTest
@@ -73,6 +74,72 @@ namespace FileManagerTest
             _filePartReader.Setup(filePath, fromLine, toLine);
             string actual = _filePartReader.Read();
             Assert.AreEqual(expectedContent, actual);
+        }
+
+        [Test]
+        public void GetTwoLinesWhenReadFromFile()
+        {
+            const string expectedContent = "first line of text second line add remove edit";
+            const string filePath = @"F:\C#\PROJECTS\FilePartReader\test.txt";
+            const int fromLine = 1;
+            const int toLine = 2;
+            _filePartReader.Setup(filePath, fromLine, toLine);
+            string actual = _filePartReader.ReadLines();
+            Assert.AreEqual(expectedContent, actual);
+        }
+
+        [Test]
+        public void GetOneLineIfFromLineAndToLineAreEqualToOneWhenReadFromFile()
+        {
+            const string expectedContent = "first line of text";
+            const string filePath = @"F:\C#\PROJECTS\FilePartReader\test.txt";
+            const int fromLine = 1;
+            const int toLine = 1;
+            _filePartReader.Setup(filePath, fromLine, toLine);
+            string actual = _filePartReader.ReadLines();
+            Assert.AreEqual(expectedContent, actual);
+        }
+
+        [Test]
+        public void GetContentIfToLineHaveMoreLineThenFileHaveWhenReadFromFile()
+        {
+            const string expectedContent = "first line of text " +
+                                           "second line add remove edit " +
+                                           "third line some words extra " +
+                                           "fourth";
+            const string filePath = @"F:\C#\PROJECTS\FilePartReader\test.txt";
+            const int fromLine = 1;
+            const int toLine = 100;
+            _filePartReader.Setup(filePath, fromLine, toLine);
+            string actual = _filePartReader.ReadLines();
+            Assert.AreEqual(expectedContent, actual);
+        }
+
+        [Test]
+        public void GetContentIfFileIsEmptyWhenReadFromFile()
+        {
+            const string expectedContent = "";
+            const string filePath = @"F:\C#\PROJECTS\FilePartReader\emptyTest.txt";
+            const int fromLine = 1;
+            const int toLine = 5;
+            _filePartReader.Setup(filePath, fromLine, toLine);
+            string actual = _filePartReader.ReadLines();
+            Assert.AreEqual(expectedContent, actual);
+        }
+
+        [Test]
+        public void InvokeReadMethodBeforeReadLinesMethodIsExecuted()
+        {
+            const string filePath = @"F:\C#\PROJECTS\FilePartReader\test.txt";
+            const int fromLine = 1;
+            const int toLine = 5;
+
+            Mock<FilePartReader> filePartReaderMock = new Mock<FilePartReader> {CallBase = true};
+            filePartReaderMock.Object.Setup(filePath, fromLine, toLine);
+            filePartReaderMock.Object.ReadLines();
+            filePartReaderMock.CallBase = false;
+            filePartReaderMock.Verify(x => x.Read(), Times.Once);
+
         }
     }
 }
