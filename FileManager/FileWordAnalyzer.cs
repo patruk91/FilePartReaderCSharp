@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FileHelper;
 
 namespace FileManager
 {
@@ -24,6 +25,12 @@ namespace FileManager
         {
             string[] words = GetWords();
             return words.Where(word => word.Contains(substring)).ToList();
+        }
+
+        public List<string> GetStringWhichPalindromes()
+        {
+            string[] words = GetWords();
+            return words.Where(word => word.ToLower().Equals(word.ReverseWord())).ToList();
         }
 
         public string[] GetWords()
