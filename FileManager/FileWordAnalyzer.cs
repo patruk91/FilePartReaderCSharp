@@ -13,6 +13,13 @@ namespace FileManager
             _filePartReader = filePartReader;
         }
 
+        public List<string> GetWordsOrderedAlphabetically()
+        {
+            string[] words = GetWords();
+            Array.Sort(words);
+            return words.ToList();
+        }
+
         public string[] GetWords()
         {
             string content = _filePartReader.ReadLines();
