@@ -40,9 +40,9 @@ namespace FileManager
             if (!string.IsNullOrEmpty(content))
             {
                 string[] lines = content.Split(separator: "\n");
-                _toLine = Math.Min(lines.Length, (int)_toLine);
+                _toLine = Math.Min(lines.Length, _toLine);
 
-                int startLine = (int)_fromLine - 1;
+                int startLine = _fromLine - 1;
                 for (int i = startLine; i < _toLine; i++)
                 {
                     sb.Append(lines[i].Trim()).Append(" ");
