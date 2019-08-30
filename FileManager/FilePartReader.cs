@@ -33,7 +33,7 @@ namespace FileManager
             return File.ReadAllText(Path.GetFullPath(_filePath));
         }
 
-        public string ReadLines()
+        public virtual string ReadLines()
         {
             string content = Read();
             StringBuilder sb = new StringBuilder();
