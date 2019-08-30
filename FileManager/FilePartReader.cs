@@ -39,7 +39,7 @@ namespace FileManager
             StringBuilder sb = new StringBuilder();
             if (!string.IsNullOrEmpty(content))
             {
-                string[] lines = content.Split(separator: "\\n");
+                string[] lines = content.Split(separator: "\n");
                 _toLine = Math.Min(lines.Length, (int)_toLine);
 
                 int startLine = (int)_fromLine - 1;
