@@ -1,0 +1,4 @@
+first line of text
+second line add remove edit
+third line some words extra
+fourth
