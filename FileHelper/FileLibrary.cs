@@ -7,7 +7,7 @@ namespace FileHelper
     {
         public static string ReverseWord(this string str)
         {
-            return str.ToCharArray().Reverse().ToString();
+            return new string(str.ToCharArray().Reverse().ToArray());
         }
     }
 }
