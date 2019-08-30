@@ -7,6 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileManager", "FileManager\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileHelper", "FileHelper\FileHelper.csproj", "{5A68431E-D53E-4243-801F-69AD566EF488}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6BAEE348-7CD4-4F99-8895-EA53B6FCA425}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F4F781DA-2CC4-4C41-B883-DCF5336ED6F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileManagerTest", "FileManagerTest\FileManagerTest.csproj", "{5A292FDF-5E57-4530-97D6-AA037AA28E15}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +27,18 @@ Global
 		{5A68431E-D53E-4243-801F-69AD566EF488}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A68431E-D53E-4243-801F-69AD566EF488}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A68431E-D53E-4243-801F-69AD566EF488}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A292FDF-5E57-4530-97D6-AA037AA28E15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A292FDF-5E57-4530-97D6-AA037AA28E15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A292FDF-5E57-4530-97D6-AA037AA28E15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A292FDF-5E57-4530-97D6-AA037AA28E15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BE693E7A-B168-4747-9E61-1C73F316A3A5} = {6BAEE348-7CD4-4F99-8895-EA53B6FCA425}
+		{5A68431E-D53E-4243-801F-69AD566EF488} = {6BAEE348-7CD4-4F99-8895-EA53B6FCA425}
+		{5A292FDF-5E57-4530-97D6-AA037AA28E15} = {F4F781DA-2CC4-4C41-B883-DCF5336ED6F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F959B08-D38D-4EE0-BC9E-E1647872900F}
