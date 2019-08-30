@@ -12,6 +12,7 @@ namespace FileManagerTest
     {
         private Mock<FilePartReader> _filePartReaderMock;
         private FileWordAnalyzer _fileWordAnalyzer;
+
         [SetUp]
         public void Setup()
         {
@@ -22,7 +23,7 @@ namespace FileManagerTest
         [Test]
         public void SortWordAlphabeticallyFromString()
         {
-            List<string> expected =  new List<string> { "alpha", "beta", "gamma", "theta", "zeta" };
+            List<string> expected = new List<string> {"alpha", "beta", "gamma", "theta", "zeta"};
             _filePartReaderMock.Setup(mock => mock.ReadLines()).Returns("gamma zeta beta theta alpha");
 
             List<string> actual = _fileWordAnalyzer.GetWordsOrderedAlphabetically();
@@ -61,7 +62,7 @@ namespace FileManagerTest
         [Test]
         public void GetWordsContainingSubstringFromString()
         {
-            List<string> expected = new List<string> { "zeta", "beta", "theta" };
+            List<string> expected = new List<string> {"zeta", "beta", "theta"};
             _filePartReaderMock.Setup(mock => mock.ReadLines()).Returns("gamma zeta beta theta alpha");
 
             List<string> actual = _fileWordAnalyzer.GetWordsContainingSubstring("eta");
@@ -72,7 +73,7 @@ namespace FileManagerTest
         [Test]
         public void GetWordsContainingSubstringFromStringWithDifferentCases()
         {
-            List<string> expected = new List<string> { "Zeta", "beta", "Theta" };
+            List<string> expected = new List<string> {"Zeta", "beta", "Theta"};
             _filePartReaderMock.Setup(mock => mock.ReadLines()).Returns("gamma Zeta beta Theta alpha");
 
             List<string> actual = _fileWordAnalyzer.GetWordsContainingSubstring("eta");
@@ -99,7 +100,7 @@ namespace FileManagerTest
         [Test]
         public void GetWordsWhichArePalindromesFromString()
         {
-            List<string> expected = new List<string> { "abba", "rotor", "kayak" };
+            List<string> expected = new List<string> {"abba", "rotor", "kayak"};
             _filePartReaderMock.Setup(mock => mock.ReadLines()).Returns("palindromes abba arguments class rotor kayak");
 
             List<string> actual = _fileWordAnalyzer.GetStringWhichPalindromes();
@@ -110,7 +111,7 @@ namespace FileManagerTest
         [Test]
         public void GetWordsWhichArePalindromesFromStringWithDifferentCases()
         {
-            List<string> expected = new List<string> { "Abba", "rOtor", "kayaK" };
+            List<string> expected = new List<string> {"Abba", "rOtor", "kayaK"};
             _filePartReaderMock.Setup(mock => mock.ReadLines()).Returns("PalinDromes Abba arguments class rOtor kayaK");
 
             List<string> actual = _fileWordAnalyzer.GetStringWhichPalindromes();
@@ -119,7 +120,7 @@ namespace FileManagerTest
         }
 
         [Test]
-        public void verifyIsReadLinesMethodIsInvokedWhenExecuteGetStringsWhichPalindromes()
+        public void VerifyIsReadLinesMethodIsInvokedWhenExecuteGetStringsWhichPalindromes()
         {
             const string filePath = @"F:\C#\PROJECTS\FilePartReader\test.txt";
             const int fromLine = 1;
@@ -129,6 +130,33 @@ namespace FileManagerTest
             Mock<FileWordAnalyzer> fileWordAnalyzerMock = new Mock<FileWordAnalyzer>(_filePartReaderMock.Object);
 
             fileWordAnalyzerMock.Object.GetStringWhichPalindromes();
+            _filePartReaderMock.CallBase = false;
+
+            _filePartReaderMock.Verify(x => x.ReadLines(), Times.Once);
+        }
+
+        [Test]
+        public void SplitWordsToArrayFromString()
+        {
+            string[] expected = {"some", "words", "to", "check"};
+
+            _filePartReaderMock.Setup(mock => mock.ReadLines()).Returns("some words to check");
+            string[] actual = _fileWordAnalyzer.GetWords();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void VerifyIsReadLinesMethodIsInvokedWhenExecuteGetWords()
+        {
+            const string filePath = @"F:\C#\PROJECTS\FilePartReader\test.txt";
+            const int fromLine = 1;
+            const int toLine = 5;
+            _filePartReaderMock.CallBase = true;
+            _filePartReaderMock.Object.Setup(filePath, fromLine, toLine);
+            Mock<FileWordAnalyzer> fileWordAnalyzerMock = new Mock<FileWordAnalyzer>(_filePartReaderMock.Object);
+
+            fileWordAnalyzerMock.Object.GetWords();
             _filePartReaderMock.CallBase = false;
 
             _filePartReaderMock.Verify(x => x.ReadLines(), Times.Once);
